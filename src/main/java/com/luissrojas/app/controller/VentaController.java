@@ -1,7 +1,11 @@
 package com.luissrojas.app.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -17,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luissrojas.app.entity.Cliente;
@@ -86,6 +92,18 @@ public class VentaController {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(oVenta.get());
+}
+	
+	
+	
+	@PostMapping("/fecha")
+	@ResponseBody
+	public Map<String, String>  fech(@RequestBody  Map<String, String> payload )  {
+		//Date sellDate = new SimpleDateFormat("yyyy-MM-dd").parse(payload.get("fecha"));
+		//List<Venta> ventas= StreamSupport
+			//	.stream(ventaService.BuscarPorFecha(sellDate).spliterator(), false)
+				//.collect(Collectors.toList());
+		return payload;
 }
 	
 	@PutMapping("/{idventa}")

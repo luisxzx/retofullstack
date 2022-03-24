@@ -1,5 +1,7 @@
 package com.luissrojas.app.service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -18,5 +20,7 @@ public interface VentaService {
 	public Venta save(Venta venta);
 	
 	public void deleteById(Long idventa);
+	
+	public Iterable<Venta> BuscarPorFecha(Date fecha);
 
 }

@@ -1,5 +1,7 @@
 package com.luissrojas.app.service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,14 @@ public class VentaServiceImpl implements VentaService {
 		
 	}
 
+	@Override
+	@Transactional
+	public Iterable<Venta> BuscarPorFecha(Date fecha) {
+		
+		return ventaRepository.findByFecha(fecha);
+	}
+
+	
 	
 	
 

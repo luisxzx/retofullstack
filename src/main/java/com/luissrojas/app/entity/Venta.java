@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,13 +40,16 @@ public class Venta implements  Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType .IDENTITY)
 	private Long idventa;
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+	@Column(columnDefinition = "date")
 	private Date fecha;
 	
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@ManyToOne(fetch =FetchType.LAZY)
 	@JoinColumn(name="id")
+	
 	private Cliente cliente;
 	 
 	@Transient
@@ -52,6 +58,11 @@ public class Venta implements  Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "venta_id")
 	private List<DetalleVenta> Listadetalleventa;
+	@javax.persistence.PrePersist
+    public void PrePersist() {
+        this.fecha = new Date();
+        
+    }
 	
 	public Venta() {
 		Listadetalleventa = new ArrayList<DetalleVenta>();
@@ -112,6 +123,7 @@ public class Venta implements  Serializable {
 		}
 		return total;
 	}
+	
 	
 	
 	
